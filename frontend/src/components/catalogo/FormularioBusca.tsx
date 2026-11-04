@@ -8,6 +8,8 @@ interface FormularioBuscaProps {
   produtoInicial?: string
   /** Termos prontos para o cliente tocar e buscar na hora. */
   sugestoes?: string[]
+  /** Campos um abaixo do outro e botão largo, para colunas estreitas. */
+  empilhado?: boolean
   aoBuscar: (cidade: string, produto: string) => void
 }
 
@@ -18,6 +20,7 @@ export function FormularioBusca({
   cidadeInicial = '',
   produtoInicial = '',
   sugestoes = [],
+  empilhado = false,
   aoBuscar,
 }: FormularioBuscaProps) {
   const [cidade, setCidade] = useState(cidadeInicial)
@@ -33,7 +36,7 @@ export function FormularioBusca({
 
   return (
     <form onSubmit={enviar} className="flex flex-col gap-3">
-      <div className="grid gap-3 sm:grid-cols-[1fr_1.6fr_auto] sm:items-end">
+      <div className={`grid gap-3 ${empilhado ? '' : 'sm:grid-cols-[1fr_1.6fr_auto] sm:items-end'}`}>
         <Seletor
           rotulo="Cidade"
           value={cidade}
@@ -51,7 +54,7 @@ export function FormularioBusca({
           onChange={(evento) => setProduto(evento.target.value)}
           autoComplete="off"
         />
-        <Botao type="submit" className="h-12 px-6">
+        <Botao type="submit" className={`h-12 px-6 ${empilhado ? 'mt-1 w-full' : ''}`}>
           Buscar lojas
         </Botao>
       </div>
