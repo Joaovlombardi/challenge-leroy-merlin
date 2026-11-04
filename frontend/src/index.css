@@ -1,44 +1,56 @@
 @import 'tailwindcss';
 
 /*
- * Identidade visual do Leroy Guia.
- * O verde principal (brand-500) é o verde da Leroy Merlin; os demais tons
- * derivam dele. "ink" é a escala de cinzas levemente esverdeada usada em
- * textos, bordas e fundos.
+ * Identidade visual LEROY MERLIN.
+ * Valores do tema "leroymerlin" do Mozaic (design system do grupo ADEO),
+ * conforme docs/identidade-visual.md. Não inventar cores fora desta lista.
+ *
+ * Regra de uso: verde é para ação e destaque, não para preencher a tela.
+ * A base é branco + preto + cinza-azulado.
  */
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'LeroyMerlin', 'Open Sans', 'Source Sans 3', Roboto, Arial, sans-serif;
 
-  --color-brand-50: #f3fae8;
-  --color-brand-100: #e4f3c6;
-  --color-brand-200: #c9e894;
-  --color-brand-300: #a9da58;
-  --color-brand-400: #8fce2f;
-  --color-brand-500: #78be20;
-  --color-brand-600: #5e9a16;
-  --color-brand-700: #477514;
-  --color-brand-800: #3a5d15;
-  --color-brand-900: #2d4a12;
+  /* Marca e ação */
+  --color-brand: #78be20; /* verde de marca: logo, decorativos, bordas de destaque */
+  --color-accent: #117f03; /* botão principal, links, ícones de destaque */
+  --color-accent-hover: #006902;
+  --color-accent-border: #3f9e10;
+  --color-accent-bg: #ebf5de; /* fundos de destaque */
+  --color-accent-inverse: #035010; /* fundos escuros de marca */
 
-  --color-ink-50: #f7f8f5;
-  --color-ink-100: #eef1ea;
-  --color-ink-200: #dde2d6;
-  --color-ink-300: #c6ccc1;
-  --color-ink-500: #6b7565;
-  --color-ink-700: #3d4a37;
-  --color-ink-900: #1f2a1a;
+  /* Neutros */
+  --color-ink: #000000; /* texto principal */
+  --color-ink-2: #404040; /* texto secundário */
+  --color-ink-3: #666666; /* texto terciário */
+  --color-surface: #ffffff;
+  --color-surface-2: #eff1f6; /* cinza-azulado para áreas e cartões */
+  --color-surface-inverse: #242938; /* rodapé e áreas escuras */
+  --color-neutral-btn: #464e63; /* botão neutro */
+  --color-line: #cccccc; /* bordas */
 
-  --color-alert-50: #fff3ee;
-  --color-alert-500: #e4572e;
-  --color-alert-700: #b43f1c;
+  /* Status: texto / borda / fundo */
+  --color-success: #117f03;
+  --color-success-border: #78be20;
+  --color-success-bg: #ebf5de;
+  --color-info: #0074aa;
+  --color-info-border: #3facd7;
+  --color-info-bg: #e1f3f9;
+  --color-warning: #b64f00;
+  --color-warning-border: #ef934a;
+  --color-warning-bg: #fdf1e8;
+  --color-error: #c61112;
+  --color-error-border: #ef5f5c;
+  --color-error-bg: #fdeaea;
 
-  --color-sun-50: #fff8e1;
-  --color-sun-500: #f5b400;
-  --color-sun-700: #a67a00;
+  /* Forma */
+  --radius-s: 4px; /* botões e campos */
+  --radius-m: 8px; /* cartões */
+  --radius-l: 16px;
 
-  --radius-card: 1rem;
-  --shadow-card: 0 1px 2px rgb(31 42 26 / 0.06), 0 10px 28px -14px rgb(31 42 26 / 0.22);
-  --shadow-float: 0 20px 50px -20px rgb(31 42 26 / 0.35);
+  /* Sombras suaves, para baixo */
+  --shadow-card: 0 5px 10px -2px rgb(0 0 0 / 0.2);
+  --shadow-float: 0 12px 24px -6px rgb(0 0 0 / 0.2);
 }
 
 html {
@@ -46,7 +58,13 @@ html {
 }
 
 body {
-  @apply bg-ink-50 text-ink-900 antialiased;
+  @apply bg-surface text-ink antialiased;
+  line-height: 1.3;
+}
+
+/* Blocos longos de texto respiram mais. */
+p {
+  line-height: 1.5;
 }
 
 /* Esconde a barra de rolagem horizontal dos carrosséis sem tirar a rolagem. */

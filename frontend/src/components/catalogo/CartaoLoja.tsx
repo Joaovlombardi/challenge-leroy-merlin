@@ -40,34 +40,34 @@ export function CartaoLoja({ resultado, termo, melhorPreco = false }: CartaoLoja
   return (
     <Cartao destacado={melhorPreco} className="flex flex-col p-5">
       <div className="flex items-start gap-3">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-bg text-accent">
           <Icone nome="loja" tamanho={22} />
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="text-lg font-bold text-ink-900">{loja.nome}</h3>
-          <p className="truncate text-sm text-ink-500">
+          <h3 className="text-lg font-semibold text-ink">{loja.nome}</h3>
+          <p className="truncate text-sm text-ink-3">
             {loja.cidade}
             {loja.endereco && ` · ${loja.endereco}`}
           </p>
         </div>
         {melhorPreco && (
-          <Selo tom="verde" icone="etiqueta">
+          <Selo tom="sucesso" icone="etiqueta">
             Menor preço
           </Selo>
         )}
       </div>
 
       {buscou && (
-        <div className="mt-4 rounded-xl bg-ink-50 p-4">
+        <div className="mt-4 rounded-m bg-surface-2 p-4">
           {destaque ? (
             <>
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                <span className="text-xs font-semibold tracking-wide text-ink-500 uppercase">A partir de</span>
-                <span className="text-2xl font-extrabold text-brand-700">{formatarPreco(menorPreco ?? 0)}</span>
+                <span className="text-xs font-semibold tracking-wide text-ink-3 uppercase">A partir de</span>
+                <span className="text-2xl font-semibold text-accent">{formatarPreco(menorPreco ?? 0)}</span>
               </div>
-              <p className="mt-1 truncate text-sm font-medium text-ink-900">{destaque.nome}</p>
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-ink-500">
-                <Selo tom="verde" icone="caixa">
+              <p className="mt-1 truncate text-sm font-medium text-ink">{destaque.nome}</p>
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-ink-3">
+                <Selo tom="sucesso" icone="caixa">
                   {plural(emEstoque.length, 'opção em estoque', 'opções em estoque')}
                 </Selo>
                 <span className="inline-flex items-center gap-1">
@@ -77,7 +77,7 @@ export function CartaoLoja({ resultado, termo, melhorPreco = false }: CartaoLoja
               </div>
             </>
           ) : (
-            <p className="text-sm text-ink-500">
+            <p className="text-sm text-ink-3">
               {produtos.length > 0
                 ? 'Os itens correspondentes estão sem estoque nesta loja.'
                 : 'Nenhum produto correspondente nesta loja.'}

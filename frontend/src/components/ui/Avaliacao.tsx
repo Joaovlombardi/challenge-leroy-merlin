@@ -10,7 +10,7 @@ export function Avaliacao({ nota }: { nota: number }) {
           <Estrela key={posicao} cheia={posicao <= cheias} />
         ))}
       </span>
-      <span className="text-xs font-semibold text-ink-700">{nota.toFixed(1)}</span>
+      <span className="text-xs font-semibold text-ink-2">{nota.toFixed(1)}</span>
     </span>
   )
 }

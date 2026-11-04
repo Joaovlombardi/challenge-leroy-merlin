@@ -1,19 +1,26 @@
 import type { ButtonHTMLAttributes } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
 
-export type VarianteBotao = 'primario' | 'secundario' | 'fantasma' | 'escuro'
+/**
+ * Variantes conforme o guia de identidade visual:
+ * - primario: botão principal (fundo accent, texto branco)
+ * - secundario: botão contornado (fundo branco, borda verde de marca, texto accent)
+ * - neutro: botão neutro (fundo cinza-azulado escuro, texto branco)
+ * - fantasma: só texto, para ações discretas
+ */
+export type VarianteBotao = 'primario' | 'secundario' | 'neutro' | 'fantasma'
 export type TamanhoBotao = 'sm' | 'md' | 'lg'
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-colors ' +
-  'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 ' +
+  'inline-flex items-center justify-center gap-2 rounded-s font-semibold whitespace-nowrap transition-colors ' +
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ' +
   'disabled:pointer-events-none disabled:opacity-50'
 
 const variantes: Record<VarianteBotao, string> = {
-  primario: 'bg-brand-500 text-white shadow-sm hover:bg-brand-600 active:bg-brand-700',
-  secundario: 'border border-brand-300 bg-white text-brand-700 hover:bg-brand-50 active:bg-brand-100',
-  fantasma: 'text-ink-700 hover:bg-ink-100 active:bg-ink-200',
-  escuro: 'bg-ink-900 text-white hover:bg-ink-700',
+  primario: 'bg-accent text-white hover:bg-accent-hover active:bg-accent-inverse',
+  secundario: 'border border-brand bg-white text-accent hover:bg-accent-bg active:bg-accent-bg',
+  neutro: 'bg-neutral-btn text-white hover:bg-surface-inverse',
+  fantasma: 'text-ink-2 hover:bg-surface-2 hover:text-ink active:bg-line',
 }
 
 const tamanhos: Record<TamanhoBotao, string> = {

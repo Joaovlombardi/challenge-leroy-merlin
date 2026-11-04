@@ -1,14 +1,16 @@
 import type { HTMLAttributes } from 'react'
 import { Icone, type NomeIcone } from './Icone'
 
-export type TomSelo = 'verde' | 'cinza' | 'laranja' | 'amarelo' | 'escuro'
+/** Tons seguem as cores de status do guia: sucesso, info, aviso, erro, mais neutro e escuro. */
+export type TomSelo = 'sucesso' | 'info' | 'aviso' | 'erro' | 'neutro' | 'escuro'
 
 const tons: Record<TomSelo, string> = {
-  verde: 'bg-brand-100 text-brand-800',
-  cinza: 'bg-ink-100 text-ink-700',
-  laranja: 'bg-alert-50 text-alert-700',
-  amarelo: 'bg-sun-50 text-sun-700',
-  escuro: 'bg-ink-900 text-white',
+  sucesso: 'border-success-border bg-success-bg text-success',
+  info: 'border-info-border bg-info-bg text-info',
+  aviso: 'border-warning-border bg-warning-bg text-warning',
+  erro: 'border-error-border bg-error-bg text-error',
+  neutro: 'border-line bg-surface-2 text-ink-2',
+  escuro: 'border-surface-inverse bg-surface-inverse text-white',
 }
 
 interface SeloProps extends HTMLAttributes<HTMLSpanElement> {
@@ -17,10 +19,10 @@ interface SeloProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 /** Etiqueta pequena para status e destaques ("Mais barato", "Em estoque"). */
-export function Selo({ tom = 'cinza', icone, className = '', children, ...props }: SeloProps) {
+export function Selo({ tom = 'neutro', icone, className = '', children, ...props }: SeloProps) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${tons[tom]} ${className}`}
+      className={`inline-flex items-center gap-1 rounded-s border px-2 py-0.5 text-xs font-semibold ${tons[tom]} ${className}`}
       {...props}
     >
       {icone && <Icone nome={icone} tamanho={14} />}
@@ -31,7 +33,7 @@ export function Selo({ tom = 'cinza', icone, className = '', children, ...props 
 
 /** Selo de estoque com a cor certa para cada situação. */
 export function SeloEstoque({ estoque }: { estoque: number }) {
-  if (estoque <= 0) return <Selo tom="laranja">Sem estoque</Selo>
-  if (estoque <= 3) return <Selo tom="amarelo">Últimas {estoque} unidades</Selo>
-  return <Selo tom="verde">{estoque} em estoque</Selo>
+  if (estoque <= 0) return <Selo tom="erro">Sem estoque</Selo>
+  if (estoque <= 3) return <Selo tom="aviso">Últimas {estoque} unidades</Selo>
+  return <Selo tom="sucesso">{estoque} em estoque</Selo>
 }

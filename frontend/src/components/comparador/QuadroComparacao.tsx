@@ -22,7 +22,7 @@ function Destaques({ produto, resultado }: { produto: Produto; resultado: Result
   const selos: ReactNode[] = []
   if (produto.id === resultado.maisBaratoId) {
     selos.push(
-      <Selo key="barato" tom="verde" icone="etiqueta">
+      <Selo key="barato" tom="sucesso" icone="etiqueta">
         Mais barato
       </Selo>,
     )
@@ -36,7 +36,7 @@ function Destaques({ produto, resultado }: { produto: Produto; resultado: Result
   }
   if (produto.id === resultado.melhorAvaliadoId) {
     selos.push(
-      <Selo key="nota" tom="amarelo">
+      <Selo key="nota" tom="info">
         Melhor avaliado
       </Selo>,
     )
@@ -47,16 +47,16 @@ function Destaques({ produto, resultado }: { produto: Produto; resultado: Result
 
 function Economia({ produto, maiorPreco }: { produto: Produto; maiorPreco: number }) {
   const diferenca = maiorPreco - produto.preco
-  if (diferenca <= 0.005) return <span className="text-xs text-ink-500">Opção mais cara</span>
+  if (diferenca <= 0.005) return <span className="text-xs text-ink-3">Opção mais cara</span>
   return (
-    <span className="text-xs font-semibold text-brand-700">{formatarPreco(diferenca)} a menos que a mais cara</span>
+    <span className="text-xs font-semibold text-accent">{formatarPreco(diferenca)} a menos que a mais cara</span>
   )
 }
 
 function Localizacao({ produto }: { produto: Produto }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-sm text-ink-900">
-      <Icone nome="rota" tamanho={16} className="text-brand-600" />
+    <span className="inline-flex items-center gap-1.5 text-sm text-ink">
+      <Icone nome="rota" tamanho={16} className="text-accent" />
       Corredor <strong>{produto.corredor}</strong> · {produto.secao}
     </span>
   )
@@ -97,17 +97,17 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
           >
             <Destaques produto={produto} resultado={resultado} />
             <div>
-              {produto.marca && <p className="text-xs font-semibold text-ink-500 uppercase">{produto.marca}</p>}
-              <h3 className="font-bold text-ink-900">{produto.nome}</h3>
+              {produto.marca && <p className="text-xs font-semibold text-ink-3 uppercase">{produto.marca}</p>}
+              <h3 className="font-semibold text-ink">{produto.nome}</h3>
             </div>
             <div>
-              <p className="text-2xl font-extrabold text-ink-900">{formatarPreco(produto.preco)}</p>
+              <p className="text-2xl font-semibold text-ink">{formatarPreco(produto.preco)}</p>
               <Economia produto={produto} maiorPreco={resultado.maiorPreco} />
             </div>
             <SeloEstoque estoque={produto.estoque} />
             <Localizacao produto={produto} />
             {typeof produto.avaliacao === 'number' && <Avaliacao nota={produto.avaliacao} />}
-            <p className="text-sm text-ink-500">{produto.descricao}</p>
+            <p className="text-sm text-ink-3">{produto.descricao}</p>
             <div className="mt-auto pt-2">
               <Acoes lojaId={lojaId} produto={produto} />
             </div>
@@ -116,33 +116,33 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
       </div>
 
       {/* Telas maiores: tabela */}
-      <div className="hidden overflow-x-auto rounded-card border border-ink-100 bg-white shadow-card md:block">
+      <div className="hidden overflow-x-auto rounded-m border border-line bg-white shadow-card md:block">
         <table className="w-full table-fixed border-collapse text-left text-sm">
           <thead>
             <tr className="align-top">
-              <th scope="col" className="w-36 p-4 text-xs font-semibold tracking-wide text-ink-500 uppercase">
+              <th scope="col" className="w-36 p-4 text-xs font-semibold tracking-wide text-ink-3 uppercase">
                 Produto
               </th>
               {produtos.map((produto) => (
                 <th
                   key={produto.id}
                   scope="col"
-                  className={`p-4 align-top ${produto.id === resultado.maisBaratoId ? 'bg-brand-50' : ''}`}
+                  className={`p-4 align-top ${produto.id === resultado.maisBaratoId ? 'bg-accent-bg' : ''}`}
                 >
                   <Destaques produto={produto} resultado={resultado} />
                   {produto.marca && (
-                    <p className="mt-2 text-xs font-semibold text-ink-500 uppercase">{produto.marca}</p>
+                    <p className="mt-2 text-xs font-semibold text-ink-3 uppercase">{produto.marca}</p>
                   )}
-                  <p className="mt-1 text-base font-bold text-ink-900">{produto.nome}</p>
+                  <p className="mt-1 text-base font-semibold text-ink">{produto.nome}</p>
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="[&_td]:border-t [&_td]:border-ink-100 [&_th]:border-t [&_th]:border-ink-100">
+          <tbody className="[&_td]:border-t [&_td]:border-line [&_th]:border-t [&_th]:border-line">
             <Linha titulo="Preço" produtos={produtos} resultado={resultado}>
               {(produto) => (
                 <>
-                  <p className="text-2xl font-extrabold text-ink-900">{formatarPreco(produto.preco)}</p>
+                  <p className="text-2xl font-semibold text-ink">{formatarPreco(produto.preco)}</p>
                   <Economia produto={produto} maiorPreco={resultado.maiorPreco} />
                 </>
               )}
@@ -155,7 +155,7 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
             </Linha>
             {temMarca && (
               <Linha titulo="Marca" produtos={produtos} resultado={resultado}>
-                {(produto) => <span className="text-ink-900">{produto.marca ?? '—'}</span>}
+                {(produto) => <span className="text-ink">{produto.marca ?? '—'}</span>}
               </Linha>
             )}
             {temNota && (
@@ -166,7 +166,7 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
               </Linha>
             )}
             <Linha titulo="Descrição" produtos={produtos} resultado={resultado}>
-              {(produto) => <p className="text-ink-500">{produto.descricao}</p>}
+              {(produto) => <p className="text-ink-3">{produto.descricao}</p>}
             </Linha>
             <Linha titulo="" produtos={produtos} resultado={resultado}>
               {(produto) => <Acoes lojaId={lojaId} produto={produto} />}
@@ -188,11 +188,11 @@ interface LinhaProps {
 function Linha({ titulo, produtos, resultado, children }: LinhaProps) {
   return (
     <tr className="align-top">
-      <th scope="row" className="p-4 text-xs font-semibold tracking-wide text-ink-500 uppercase">
+      <th scope="row" className="p-4 text-xs font-semibold tracking-wide text-ink-3 uppercase">
         {titulo}
       </th>
       {produtos.map((produto) => (
-        <td key={produto.id} className={`p-4 ${produto.id === resultado.maisBaratoId ? 'bg-brand-50' : ''}`}>
+        <td key={produto.id} className={`p-4 ${produto.id === resultado.maisBaratoId ? 'bg-accent-bg' : ''}`}>
           {children(produto)}
         </td>
       ))}

@@ -73,7 +73,7 @@ export function BuscaLojas() {
     <div>
       <TituloPagina titulo={titulo} descricao={descricao} />
 
-      <div className="rounded-card border border-ink-100 bg-white p-4 shadow-card md:p-5">
+      <div className="rounded-m border border-line bg-white p-4 shadow-card md:p-5">
         <FormularioBusca
           compacto
           cidades={cidades}
@@ -111,12 +111,12 @@ export function BuscaLojas() {
         ) : (
           <>
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-ink-500">
+              <p className="text-sm text-ink-3">
                 {plural(ordenados.length, 'loja encontrada', 'lojas encontradas')}
               </p>
               {produto && (
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-ink-700">Ordenar por</span>
+                  <span className="text-sm font-semibold text-ink-2">Ordenar por</span>
                   <Seletor
                     rotulo=""
                     aria-label="Ordenar por"

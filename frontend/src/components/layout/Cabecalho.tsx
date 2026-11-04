@@ -11,8 +11,8 @@ const itens = [
 
 function classeItem({ isActive }: { isActive: boolean }): string {
   return (
-    'rounded-full px-3 py-2 text-sm font-semibold transition-colors ' +
-    (isActive ? 'bg-brand-50 text-brand-800' : 'text-ink-700 hover:bg-ink-100')
+    'rounded-s px-3 py-2 text-sm font-semibold transition-colors ' +
+    (isActive ? 'bg-accent-bg text-accent' : 'text-ink-2 hover:bg-surface-2 hover:text-ink')
   )
 }
 
@@ -20,7 +20,8 @@ export function Cabecalho() {
   const { lojaAtual, sairDaLoja } = useLojaAtual()
 
   return (
-    <header className="sticky top-0 z-20 border-b border-ink-100 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-20 bg-white shadow-card">
+      <div aria-hidden="true" className="h-1 bg-brand" />
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
         <Link to="/" aria-label="Leroy Guia, página inicial">
           <Logotipo />
@@ -35,20 +36,16 @@ export function Cabecalho() {
       </div>
 
       {lojaAtual && (
-        <div className="border-t border-brand-100 bg-brand-50">
-          <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-2 text-xs font-medium text-brand-800">
+        <div className="border-t border-success-border bg-success-bg">
+          <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-2 text-xs font-medium text-success">
             <Icone nome="pin" tamanho={14} />
             <span>
               Você está na <strong>{lojaAtual.nome}</strong>
             </span>
-            <Link to={`/loja/${lojaAtual.id}`} className="ml-auto underline underline-offset-2 hover:text-brand-900">
+            <Link to={`/loja/${lojaAtual.id}`} className="ml-auto underline underline-offset-2 hover:text-accent-hover">
               Abrir loja
             </Link>
-            <button
-              type="button"
-              onClick={sairDaLoja}
-              className="rounded-full px-2 py-0.5 text-brand-700 hover:bg-brand-100"
-            >
+            <button type="button" onClick={sairDaLoja} className="rounded-s px-2 py-0.5 text-accent hover:bg-white">
               Sair
             </button>
           </div>

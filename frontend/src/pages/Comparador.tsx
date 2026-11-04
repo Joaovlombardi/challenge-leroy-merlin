@@ -98,7 +98,7 @@ export function Comparador() {
     <div>
       <Link
         to={`/lojas?produto=${encodeURIComponent(busca)}${loja ? `&cidade=${encodeURIComponent(loja.cidade)}` : ''}`}
-        className="mb-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:underline"
+        className="mb-3 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline"
       >
         <Icone nome="voltar" tamanho={16} />
         Voltar para as lojas
@@ -172,7 +172,7 @@ export function Comparador() {
             <EstadoVazio icone="comparar" titulo="Selecione pelo menos um produto" />
           ) : (
             <>
-              <p className="text-sm text-ink-500">
+              <p className="text-sm text-ink-3">
                 Comparando {plural(comparados.length, 'produto', 'produtos')}
                 {comparados.length === 1 && '. Marque mais um para ver as diferenças.'}
               </p>

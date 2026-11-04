@@ -57,7 +57,7 @@ export function Estrela({ cheia, className = '' }: { cheia: boolean; className?:
       width={14}
       height={14}
       aria-hidden="true"
-      className={`shrink-0 ${cheia ? 'text-sun-500' : 'text-ink-200'} ${className}`}
+      className={`shrink-0 ${cheia ? 'text-accent' : 'text-line'} ${className}`}
       fill="currentColor"
     >
       <path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z" />

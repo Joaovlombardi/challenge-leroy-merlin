@@ -36,8 +36,8 @@ export function TituloPagina({ titulo, descricao, acoes }: TituloPaginaProps) {
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 className="text-2xl font-extrabold tracking-tight text-ink-900 md:text-3xl">{titulo}</h1>
-        {descricao && <p className="mt-1 text-sm text-ink-500 md:text-base">{descricao}</p>}
+        <h1 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">{titulo}</h1>
+        {descricao && <p className="mt-1 text-sm text-ink-3 md:text-base">{descricao}</p>}
       </div>
       {acoes && <div className="flex shrink-0 gap-2">{acoes}</div>}
     </div>

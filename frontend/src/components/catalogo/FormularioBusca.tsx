@@ -63,7 +63,7 @@ export function FormularioBusca({
 
       {sugestoes.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold text-ink-500">Sugestões:</span>
+          <span className="text-xs font-semibold text-ink-3">Sugestões:</span>
           {sugestoes.map((sugestao) => (
             <button
               key={sugestao}
@@ -72,7 +72,7 @@ export function FormularioBusca({
                 setProduto(sugestao)
                 aoBuscar(cidade.trim(), sugestao)
               }}
-              className="rounded-full border border-ink-200 bg-white px-3 py-1 text-xs font-medium text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-800"
+              className="rounded-s border border-line bg-white px-3 py-1 text-xs font-medium text-ink-2 transition-colors hover:border-accent-border hover:text-accent-hover"
             >
               {sugestao}
             </button>

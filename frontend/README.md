@@ -80,8 +80,9 @@ Tudo em `src/components/ui` é exportado por `src/components/ui/index.ts`:
 ```tsx
 import { Botao, BotaoLink, Campo, Seletor, Cartao, Selo, SeloEstoque, EstadoVazio, AlertaErro, Esqueleto, Icone } from '@/components/ui'
 
-<Botao variante="primario" tamanho="lg">Buscar</Botao>
+<Botao variante="primario" tamanho="lg">Buscar</Botao>          // variantes: primario, secundario, neutro, fantasma
 <BotaoLink to="/lojas" variante="secundario">Ver lojas</BotaoLink>
+<Selo tom="sucesso" icone="check">Atendido</Selo>               // tons: sucesso, info, aviso, erro, neutro, escuro
 <SeloEstoque estoque={produto.estoque} />
 <AlertaErro mensagem={erro} aoTentarDeNovo={recarregar} />
 ```
@@ -97,7 +98,19 @@ Para os chamados (`POST /api/chamados`, `GET /api/chamados`, `PATCH /api/chamado
 
 ## Identidade visual
 
-O tema fica em `src/index.css`. O verde principal `brand-500` (#78be20) é o verde da Leroy Merlin; os outros tons derivam dele. `ink` é a escala de cinzas usada em texto e bordas, `alert` o laranja de aviso (sem estoque) e `sun` o amarelo de destaque (últimas unidades, melhor avaliado). A fonte é a Inter. Botões são arredondados, cartões têm cantos de 1rem e sombra leve. O site é feito primeiro para celular, que é como o cliente usa dentro da loja.
+A referência é [`docs/identidade-visual.md`](docs/identidade-visual.md), com os tokens do tema LEROY MERLIN do Mozaic (design system do grupo ADEO). O tema do Tailwind em `src/index.css` copia esses valores; não inventar cores fora da lista.
+
+| Token | Uso |
+| --- | --- |
+| `brand` (#78be20) | Verde de marca: filete do cabeçalho, borda do botão contornado, decorativos |
+| `accent`, `accent-hover`, `accent-bg`, `accent-border`, `accent-inverse` | Botão principal, links, ícones e fundos de destaque |
+| `ink`, `ink-2`, `ink-3` | Texto principal, secundário e terciário |
+| `surface`, `surface-2`, `surface-inverse` | Branco, cinza-azulado de áreas e rodapé escuro |
+| `neutral-btn`, `line` | Botão neutro e bordas |
+| `success`, `info`, `warning`, `error` (+ `-border`, `-bg`) | Cores de status dos selos e alertas |
+| `rounded-s`, `rounded-m`, `rounded-l` | 4px (botões e campos), 8px (cartões), 16px |
+
+Regras que o guia pede e o código segue: verde é para ação e destaque, não para preencher a tela (a base é branco, preto e cinza-azulado); títulos em peso 600 e texto em 400; ícones de linha; sombras suaves para baixo. A fonte oficial (LeroyMerlin Sans) é proprietária, então o site usa Open Sans. O logo oficial está em `public/logo-leroy-merlin.png` e não deve ser redesenhado em SVG ou CSS. O site é feito primeiro para celular, que é como o cliente usa dentro da loja.
 
 ## Campos opcionais no contrato
 

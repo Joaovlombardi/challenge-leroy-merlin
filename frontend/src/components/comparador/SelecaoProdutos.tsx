@@ -16,8 +16,8 @@ export function SelecaoProdutos({ produtos, selecionados, maximo, aoAlternar }: 
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <h2 className="text-sm font-bold text-ink-700">Escolha o que comparar</h2>
-        <span className="text-xs text-ink-500">
+        <h2 className="text-sm font-semibold text-ink-2">Escolha o que comparar</h2>
+        <span className="text-xs text-ink-3">
           {selecionados.length} de {maximo}
         </span>
       </div>
@@ -35,23 +35,23 @@ export function SelecaoProdutos({ produtos, selecionados, maximo, aoAlternar }: 
                 onClick={() => aoAlternar(produto.id)}
                 title={desabilitado ? `Você pode comparar até ${maximo} produtos` : undefined}
                 className={
-                  'flex max-w-[16rem] items-center gap-2 rounded-xl border px-3 py-2 text-left text-sm transition-colors ' +
-                  'focus-visible:ring-4 focus-visible:ring-brand-200 focus-visible:outline-none disabled:opacity-40 ' +
+                  'flex max-w-[16rem] items-center gap-2 rounded-m border px-3 py-2 text-left text-sm transition-colors ' +
+                  'focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-40 ' +
                   (ativo
-                    ? 'border-brand-500 bg-brand-50 text-brand-900'
-                    : 'border-ink-200 bg-white text-ink-700 hover:border-brand-300')
+                    ? 'border-accent-border bg-accent-bg text-accent'
+                    : 'border-line bg-white text-ink-2 hover:border-accent-border')
                 }
               >
                 <span
-                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${
-                    ativo ? 'border-brand-500 bg-brand-500 text-white' : 'border-ink-300 bg-white'
+                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-s border ${
+                    ativo ? 'border-accent-border bg-accent text-white' : 'border-line bg-white'
                   }`}
                 >
                   {ativo && <Icone nome="check" tamanho={14} />}
                 </span>
                 <span className="min-w-0">
                   <span className="block truncate font-semibold">{produto.nome}</span>
-                  <span className="block text-xs text-ink-500">
+                  <span className="block text-xs text-ink-3">
                     {formatarPreco(produto.preco)}
                     {produto.estoque <= 0 && ' · sem estoque'}
                   </span>

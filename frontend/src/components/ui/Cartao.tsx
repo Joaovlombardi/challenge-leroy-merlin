@@ -9,7 +9,7 @@ export function Cartao({ destacado = false, className = '', ...props }: CartaoPr
   return (
     <div
       className={
-        `rounded-card border bg-white shadow-card ${destacado ? 'border-brand-400 ring-4 ring-brand-100' : 'border-ink-100'} ` +
+        `rounded-m border bg-white shadow-card ${destacado ? 'border-accent-border ring-2 ring-accent' : 'border-line'} ` +
         className
       }
       {...props}
