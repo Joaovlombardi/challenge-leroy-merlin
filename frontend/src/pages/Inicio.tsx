@@ -37,28 +37,28 @@ export function Inicio() {
 
   return (
     <div className="space-y-14 md:space-y-20">
-      {/* Hero: título à esquerda, busca à direita. Sem decoração além do tracinho verde. */}
-      <section className="grid gap-8 pt-4 md:grid-cols-[1fr_1.2fr] md:items-center md:gap-14 md:pt-12">
-        <div>
-          <span aria-hidden="true" className="mb-4 block h-1 w-10 bg-brand" />
-          <h1 className="text-3xl leading-tight font-semibold text-ink md:text-4xl">
-            O produto certo, na loja certa, sem dar voltas.
-          </h1>
-          <p className="mt-4 text-ink-2 md:text-lg">
-            Veja qual loja LEROY MERLIN tem o que você precisa, compare as opções e chegue direto ao corredor.
-          </p>
-        </div>
-        <div className="rounded-m border-t-4 border-brand bg-surface-2 p-5 md:p-7">
-          <h2 className="text-lg font-semibold text-ink">Onde tem o que você procura?</h2>
-          <div className="mt-4">
-            <FormularioBusca
-              empilhado
-              cidades={cidades}
-              carregandoCidades={lojas.carregando}
-              sugestoes={sugestoesBusca}
-              aoBuscar={buscar}
-            />
+      <section>
+        {/* Hero: bloco cinza com faixa verde na borda esquerda */}
+        <div className="relative overflow-hidden rounded-m bg-surface-2">
+          <div aria-hidden="true" className="absolute inset-y-0 left-0 w-2 bg-brand" />
+          <div className="max-w-2xl px-8 pt-10 pb-20 md:px-14 md:pt-16 md:pb-24">
+            <h1 className="text-3xl leading-tight font-semibold text-ink md:text-4xl">
+              O produto certo, na loja certa, sem dar voltas.
+            </h1>
+            <p className="mt-4 text-ink-2 md:text-lg">
+              Veja qual loja LEROY MERLIN tem o que você precisa, compare as opções e chegue direto ao corredor.
+            </p>
           </div>
+        </div>
+
+        {/* Busca: cartão branco com filete verde, sobrepondo a base do hero */}
+        <div className="relative z-10 mx-3 -mt-10 rounded-m border border-line border-t-4 border-t-brand bg-white p-4 md:mx-10 md:-mt-12 md:p-6">
+          <FormularioBusca
+            cidades={cidades}
+            carregandoCidades={lojas.carregando}
+            sugestoes={sugestoesBusca}
+            aoBuscar={buscar}
+          />
         </div>
       </section>
 
