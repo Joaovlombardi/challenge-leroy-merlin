@@ -1,5 +1,3 @@
 # Leroy Guia
 
-MVP do desafio Leroy Merlin da FIAP. O projeto terá um frontend React e um backend Java para consultar lojas e produtos e registrar chamados de vendedores.
-
-O backend está em desenvolvimento na branch da pessoa 3.
+MVP do desafio Leroy Merlin da FIAP. A API Java para lojas, produtos e chamados fica em [`backend/`](backend/README.md). O frontend React e a persistência H2 serão integrados pelas demais pessoas do grupo.
