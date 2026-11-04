@@ -73,7 +73,7 @@ export function BuscaLojas() {
     <div>
       <TituloPagina titulo={titulo} descricao={descricao} />
 
-      <div className="rounded-m bg-surface-2 p-4 md:p-5">
+      <div className="rounded-m bg-surface-2 p-5 md:p-7">
         <FormularioBusca
           cidades={cidades}
           carregandoCidades={todasLojas.carregando}
@@ -83,11 +83,11 @@ export function BuscaLojas() {
         />
       </div>
 
-      <div className="mt-8">
+      <div className="mt-12">
         {resultados.erro ? (
           <AlertaErro mensagem={resultados.erro} aoTentarDeNovo={resultados.recarregar} />
         ) : resultados.carregando ? (
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2">
             <CartaoEsqueleto />
             <CartaoEsqueleto />
           </div>
@@ -109,7 +109,7 @@ export function BuscaLojas() {
           </EstadoVazio>
         ) : (
           <>
-            <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm text-ink-3">
                 {plural(ordenados.length, 'loja encontrada', 'lojas encontradas')}
               </p>
@@ -127,7 +127,7 @@ export function BuscaLojas() {
                 </div>
               )}
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2">
               {ordenados.map((resultado) => (
                 <CartaoLoja
                   key={resultado.loja.id}

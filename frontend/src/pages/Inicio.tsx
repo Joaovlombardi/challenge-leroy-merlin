@@ -8,11 +8,10 @@ import { TituloSecao } from '@/components/layout/Layout'
 import { FormularioBusca } from '@/components/catalogo/FormularioBusca'
 import { SeletorLoja } from '@/components/catalogo/SeletorLoja'
 
-const jornada = [
-  { momento: 'Em casa', texto: 'veja qual loja tem o produto em estoque e por quanto.' },
-  { momento: 'Na loja', texto: 'descreva o que precisa e siga até o corredor certo.' },
-  { momento: 'Na dúvida', texto: 'compare preço, estoque e localização lado a lado.' },
-  { momento: 'Precisa de ajuda', texto: 'chame um vendedor sem fila.' },
+const passos = [
+  { titulo: 'Busque de casa', texto: 'Informe a cidade e o produto. Mostramos as lojas que têm em estoque e o menor preço.' },
+  { titulo: 'Compare', texto: 'Veja preço, disponibilidade e localização das opções lado a lado.' },
+  { titulo: 'Vá direto à prateleira', texto: 'Na loja, o site mostra corredor e seção. Se precisar, chame um vendedor sem fila.' },
 ]
 
 export function Inicio() {
@@ -36,29 +35,20 @@ export function Inicio() {
   }
 
   return (
-    <div className="space-y-14 md:space-y-20">
+    <div className="space-y-20 md:space-y-28">
       <section>
-        {/* Hero: bloco cinza com o título à esquerda e a jornada num painel verde à direita */}
-        <div className="grid overflow-hidden rounded-m bg-surface-2 md:grid-cols-[1.4fr_1fr]">
-          <div className="px-8 pt-10 pb-10 md:px-14 md:pt-16 md:pb-24">
-            <h1 className="text-3xl leading-tight font-semibold text-ink md:text-4xl">
-              O produto certo, na loja certa, sem dar voltas.
-            </h1>
-            <p className="mt-4 max-w-lg text-ink-2 md:text-lg">
-              Veja qual loja LEROY MERLIN tem o que você precisa, compare as opções e chegue direto ao corredor.
-            </p>
-          </div>
-          <ul className="space-y-4 bg-brand px-8 py-8 pb-20 text-ink md:px-10 md:py-16 md:pb-28">
-            {jornada.map((passo) => (
-              <li key={passo.momento} className="text-sm leading-snug md:text-base">
-                <span className="font-semibold">{passo.momento}:</span> {passo.texto}
-              </li>
-            ))}
-          </ul>
+        {/* Hero: bloco cinza, muito respiro, um único detalhe verde no ponto final */}
+        <div className="rounded-m bg-surface-2 px-8 pt-16 pb-28 md:px-16 md:pt-24 md:pb-36">
+          <h1 className="max-w-3xl text-4xl leading-tight font-semibold text-ink md:text-5xl">
+            O produto certo, na loja certa, sem dar voltas<span className="text-accent">.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-lg text-ink-2">
+            Veja qual loja LEROY MERLIN tem o que você precisa, compare as opções e chegue direto ao corredor.
+          </p>
         </div>
 
-        {/* Busca: cartão branco com filete verde-escuro, sobrepondo a base do hero */}
-        <div className="relative z-10 mx-3 -mt-10 rounded-m border border-line border-t-4 border-t-accent bg-white p-4 md:mx-10 md:-mt-12 md:p-6">
+        {/* Busca: cartão branco com filete verde, sobrepondo a base do hero */}
+        <div className="relative z-10 mx-4 -mt-14 rounded-m border border-line border-t-4 border-t-brand bg-white p-5 md:mx-12 md:-mt-16 md:p-8">
           <FormularioBusca
             cidades={cidades}
             carregandoCidades={lojas.carregando}
@@ -69,16 +59,16 @@ export function Inicio() {
       </section>
 
       <section>
-        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <TituloSecao>Já está na loja?</TituloSecao>
-            <p className="mt-2 max-w-xl text-sm text-ink-2">
+            <p className="mt-3 max-w-xl text-ink-2">
               Escolha a unidade para buscar produtos, ver o caminho na planta e chamar um vendedor.
             </p>
           </div>
-          <p className="text-xs text-ink-3">Na entrada da loja, o QR code abre o site já na unidade certa.</p>
+          <p className="text-sm text-ink-3">Na entrada da loja, o QR code abre o site já na unidade certa.</p>
         </div>
-        <div className="mt-6">
+        <div className="mt-10">
           <SeletorLoja
             lojas={lojas.dados}
             carregando={lojas.carregando}
@@ -91,6 +81,21 @@ export function Inicio() {
             }}
           />
         </div>
+      </section>
+
+      <section>
+        <TituloSecao>Como funciona</TituloSecao>
+        <ol className="mt-10 grid gap-10 md:grid-cols-3 md:gap-12">
+          {passos.map((passo, indice) => (
+            <li key={passo.titulo} className="flex gap-5 md:block">
+              <span className="text-5xl leading-none font-semibold text-brand">{indice + 1}</span>
+              <div className="md:mt-5">
+                <h3 className="text-lg font-semibold text-ink">{passo.titulo}</h3>
+                <p className="mt-2 text-ink-2">{passo.texto}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
     </div>
   )

@@ -38,7 +38,7 @@ export function CartaoLoja({ resultado, termo, melhorPreco = false }: CartaoLoja
   const query = buscou ? `?busca=${encodeURIComponent(termo)}` : ''
 
   return (
-    <Cartao destacado={melhorPreco} className="flex flex-col p-5">
+    <Cartao destacado={melhorPreco} className="flex flex-col p-6">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="text-lg font-semibold text-ink">{loja.nome}</h3>

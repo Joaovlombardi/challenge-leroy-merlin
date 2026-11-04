@@ -17,7 +17,7 @@ export function Layout() {
     <div className="flex min-h-screen flex-col">
       <RolarParaTopo />
       <Cabecalho />
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-16">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-8 pb-24 md:pt-12 md:pb-32">
         <Outlet />
       </main>
       <Rodape />
@@ -33,7 +33,7 @@ function Traco() {
 /** Título de seção dentro de uma página. */
 export function TituloSecao({ children }: { children: ReactNode }) {
   return (
-    <h2 className="text-xl font-semibold text-ink">
+    <h2 className="text-2xl font-semibold text-ink">
       <Traco />
       {children}
     </h2>
@@ -49,7 +49,7 @@ interface TituloPaginaProps {
 /** Cabeçalho padrão das páginas internas. */
 export function TituloPagina({ titulo, descricao, acoes }: TituloPaginaProps) {
   return (
-    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <Traco />
         <h1 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">{titulo}</h1>

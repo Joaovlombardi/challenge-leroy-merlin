@@ -118,7 +118,7 @@ export function Comparador() {
         }
       />
 
-      <form onSubmit={filtrar} className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end">
+      <form onSubmit={filtrar} className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end">
         <Campo
           rotulo="Filtrar produtos desta loja"
           icone="busca"
@@ -157,7 +157,7 @@ export function Comparador() {
           <BotaoLink to="/lojas">Buscar em outra loja</BotaoLink>
         </EstadoVazio>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-8">
           <SelecaoProdutos
             produtos={produtos}
             selecionados={selecionados}

@@ -40,7 +40,7 @@ export function SeletorLoja({ lojas, carregando, erro, recarregar, lojaAtualId =
               onClick={() => aoEscolher(loja)}
               aria-current={atual ? 'true' : undefined}
               className={
-                'group flex h-full w-full flex-col rounded-m border bg-white p-5 text-left transition-colors ' +
+                'group flex h-full w-full flex-col rounded-m border bg-white p-6 text-left transition-colors ' +
                 'focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:outline-none ' +
                 (atual ? 'border-line border-t-4 border-t-brand' : 'border-line hover:border-accent')
               }
@@ -48,7 +48,7 @@ export function SeletorLoja({ lojas, carregando, erro, recarregar, lojaAtualId =
               <span className="text-xs font-semibold text-ink-3 uppercase">{loja.cidade}</span>
               <span className="mt-2 text-lg leading-tight font-semibold text-ink">{loja.nome}</span>
               {loja.endereco && <span className="mt-1 text-sm text-ink-3">{loja.endereco}</span>}
-              <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-semibold text-accent">
+              <span className="mt-auto inline-flex items-center gap-1 pt-8 text-sm font-semibold text-accent">
                 {atual ? 'Você está aqui' : 'Entrar na loja'}
                 <Icone
                   nome="seta"
