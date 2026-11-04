@@ -4,14 +4,11 @@ interface CartaoProps extends HTMLAttributes<HTMLDivElement> {
   destacado?: boolean
 }
 
-/** Superfície branca com borda suave e sombra leve. */
+/** Superfície branca com borda. Sem sombra: a hierarquia vem do espaço e da tipografia. */
 export function Cartao({ destacado = false, className = '', ...props }: CartaoProps) {
   return (
     <div
-      className={
-        `rounded-m border bg-white shadow-card ${destacado ? 'border-accent-border ring-2 ring-accent' : 'border-line'} ` +
-        className
-      }
+      className={`rounded-m border bg-white ${destacado ? 'border-accent' : 'border-line'} ${className}`}
       {...props}
     />
   )

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Produto } from '@/types/api'
-import { Avaliacao, BotaoLink, Cartao, Icone, Selo, SeloEstoque } from '@/components/ui'
+import { Avaliacao, BotaoLink, Cartao, SeloEstoque } from '@/components/ui'
 import { formatarPreco } from '@/lib/texto'
 import type { ResultadoComparacao } from '@/lib/comparacao'
 
@@ -18,47 +18,26 @@ function linkVendedor(lojaId: number, produtoId: number): string {
   return `/loja/${lojaId}?chamar=1&produtoId=${produtoId}`
 }
 
+/** Rótulos curtos em verde de ação, sem selos: "Menor preço", "Mais disponível", "Melhor avaliado". */
 function Destaques({ produto, resultado }: { produto: Produto; resultado: ResultadoComparacao }) {
-  const selos: ReactNode[] = []
-  if (produto.id === resultado.maisBaratoId) {
-    selos.push(
-      <Selo key="barato" tom="sucesso" icone="etiqueta">
-        Mais barato
-      </Selo>,
-    )
-  }
-  if (produto.id === resultado.maisDisponivelId) {
-    selos.push(
-      <Selo key="estoque" tom="escuro" icone="caixa">
-        Mais disponível
-      </Selo>,
-    )
-  }
-  if (produto.id === resultado.melhorAvaliadoId) {
-    selos.push(
-      <Selo key="nota" tom="info">
-        Melhor avaliado
-      </Selo>,
-    )
-  }
-  if (selos.length === 0) return null
-  return <div className="flex flex-wrap gap-1.5">{selos}</div>
+  const rotulos: string[] = []
+  if (produto.id === resultado.maisBaratoId) rotulos.push('Menor preço')
+  if (produto.id === resultado.maisDisponivelId) rotulos.push('Mais disponível')
+  if (produto.id === resultado.melhorAvaliadoId) rotulos.push('Melhor avaliado')
+  return <p className="min-h-5 text-sm font-semibold text-accent">{rotulos.join(' · ')}</p>
 }
 
 function Economia({ produto, maiorPreco }: { produto: Produto; maiorPreco: number }) {
   const diferenca = maiorPreco - produto.preco
-  if (diferenca <= 0.005) return <span className="text-xs text-ink-3">Opção mais cara</span>
-  return (
-    <span className="text-xs font-semibold text-accent">{formatarPreco(diferenca)} a menos que a mais cara</span>
-  )
+  if (diferenca <= 0.005) return <p className="text-sm text-ink-3">Opção mais cara</p>
+  return <p className="text-sm text-ink-2">{formatarPreco(diferenca)} a menos que a mais cara</p>
 }
 
 function Localizacao({ produto }: { produto: Produto }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-sm text-ink">
-      <Icone nome="rota" tamanho={16} className="text-accent" />
-      Corredor <strong>{produto.corredor}</strong> · {produto.secao}
-    </span>
+    <p className="text-sm text-ink">
+      Corredor <strong className="font-semibold">{produto.corredor}</strong>, {produto.secao}
+    </p>
   )
 }
 
@@ -66,11 +45,9 @@ function Acoes({ lojaId, produto }: { lojaId: number; produto: Produto }) {
   return (
     <div className="flex flex-col gap-2">
       <BotaoLink to={linkPrateleira(lojaId, produto.id)} tamanho="sm">
-        <Icone nome="rota" tamanho={16} />
         Ir até a prateleira
       </BotaoLink>
       <BotaoLink to={linkVendedor(lojaId, produto.id)} variante="secundario" tamanho="sm">
-        <Icone nome="ajuda" tamanho={16} />
         Chamar vendedor
       </BotaoLink>
     </div>
@@ -97,7 +74,7 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
           >
             <Destaques produto={produto} resultado={resultado} />
             <div>
-              {produto.marca && <p className="text-xs font-semibold text-ink-3 uppercase">{produto.marca}</p>}
+              {produto.marca && <p className="text-xs text-ink-3 uppercase">{produto.marca}</p>}
               <h3 className="font-semibold text-ink">{produto.nome}</h3>
             </div>
             <div>
@@ -107,7 +84,7 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
             <SeloEstoque estoque={produto.estoque} />
             <Localizacao produto={produto} />
             {typeof produto.avaliacao === 'number' && <Avaliacao nota={produto.avaliacao} />}
-            <p className="text-sm text-ink-3">{produto.descricao}</p>
+            <p className="text-sm text-ink-2">{produto.descricao}</p>
             <div className="mt-auto pt-2">
               <Acoes lojaId={lojaId} produto={produto} />
             </div>
@@ -116,11 +93,11 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
       </div>
 
       {/* Telas maiores: tabela */}
-      <div className="hidden overflow-x-auto rounded-m border border-line bg-white shadow-card md:block">
+      <div className="hidden overflow-x-auto rounded-m border border-line bg-white md:block">
         <table className="w-full table-fixed border-collapse text-left text-sm">
           <thead>
             <tr className="align-top">
-              <th scope="col" className="w-36 p-4 text-xs font-semibold tracking-wide text-ink-3 uppercase">
+              <th scope="col" className="w-32 p-4 text-xs font-semibold text-ink-3 uppercase">
                 Produto
               </th>
               {produtos.map((produto) => (
@@ -130,9 +107,7 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
                   className={`p-4 align-top ${produto.id === resultado.maisBaratoId ? 'bg-accent-bg' : ''}`}
                 >
                   <Destaques produto={produto} resultado={resultado} />
-                  {produto.marca && (
-                    <p className="mt-2 text-xs font-semibold text-ink-3 uppercase">{produto.marca}</p>
-                  )}
+                  {produto.marca && <p className="mt-2 text-xs text-ink-3 uppercase">{produto.marca}</p>}
                   <p className="mt-1 text-base font-semibold text-ink">{produto.nome}</p>
                 </th>
               ))}
@@ -166,7 +141,7 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
               </Linha>
             )}
             <Linha titulo="Descrição" produtos={produtos} resultado={resultado}>
-              {(produto) => <p className="text-ink-3">{produto.descricao}</p>}
+              {(produto) => <p className="text-ink-2">{produto.descricao}</p>}
             </Linha>
             <Linha titulo="" produtos={produtos} resultado={resultado}>
               {(produto) => <Acoes lojaId={lojaId} produto={produto} />}
@@ -188,7 +163,7 @@ interface LinhaProps {
 function Linha({ titulo, produtos, resultado, children }: LinhaProps) {
   return (
     <tr className="align-top">
-      <th scope="row" className="p-4 text-xs font-semibold tracking-wide text-ink-3 uppercase">
+      <th scope="row" className="p-4 text-xs font-semibold text-ink-3 uppercase">
         {titulo}
       </th>
       {produtos.map((produto) => (

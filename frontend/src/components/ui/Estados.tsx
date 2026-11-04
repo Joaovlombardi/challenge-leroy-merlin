@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Botao } from './Botao'
-import { Icone, type NomeIcone } from './Icone'
+import { Icone } from './Icone'
 
 /** Bloco cinza pulsante usado enquanto os dados carregam. */
 export function Esqueleto({ className = '' }: { className?: string }) {
@@ -10,10 +10,10 @@ export function Esqueleto({ className = '' }: { className?: string }) {
 /** Cartão inteiro em esqueleto, para listas. */
 export function CartaoEsqueleto() {
   return (
-    <div className="rounded-m border border-line bg-white p-5 shadow-card">
+    <div className="rounded-m border border-line bg-white p-5">
       <Esqueleto className="h-5 w-2/5" />
       <Esqueleto className="mt-2 h-4 w-1/3" />
-      <Esqueleto className="mt-5 h-4 w-3/4" />
+      <Esqueleto className="mt-6 h-7 w-1/3" />
       <Esqueleto className="mt-2 h-4 w-1/2" />
       <div className="mt-5 flex gap-2">
         <Esqueleto className="h-11 w-32" />
@@ -24,21 +24,17 @@ export function CartaoEsqueleto() {
 }
 
 interface EstadoVazioProps {
-  icone?: NomeIcone
   titulo: string
   descricao?: string
   children?: ReactNode
 }
 
 /** Mensagem centralizada para listas vazias e páginas sem resultado. */
-export function EstadoVazio({ icone = 'busca', titulo, descricao, children }: EstadoVazioProps) {
+export function EstadoVazio({ titulo, descricao, children }: EstadoVazioProps) {
   return (
-    <div className="rounded-m border border-dashed border-line bg-white px-6 py-12 text-center">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent-bg text-accent">
-        <Icone nome={icone} tamanho={26} />
-      </div>
-      <h3 className="mt-4 text-lg font-semibold text-ink">{titulo}</h3>
-      {descricao && <p className="mx-auto mt-1 max-w-md text-sm text-ink-3">{descricao}</p>}
+    <div className="rounded-m bg-surface-2 px-6 py-12 text-center">
+      <h3 className="text-lg font-semibold text-ink">{titulo}</h3>
+      {descricao && <p className="mx-auto mt-2 max-w-md text-sm text-ink-2">{descricao}</p>}
       {children && <div className="mt-6 flex flex-wrap justify-center gap-2">{children}</div>}
     </div>
   )
@@ -60,7 +56,6 @@ export function AlertaErro({ mensagem, aoTentarDeNovo }: AlertaErroProps) {
       <p className="flex-1 text-sm font-medium">{mensagem}</p>
       {aoTentarDeNovo && (
         <Botao variante="secundario" tamanho="sm" onClick={aoTentarDeNovo}>
-          <Icone nome="recarregar" tamanho={16} />
           Tentar de novo
         </Botao>
       )}

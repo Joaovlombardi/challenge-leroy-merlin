@@ -6,7 +6,7 @@ import { useCarregar } from '@/hooks/useCarregar'
 import { compararProdutos, ordenarParaComparar } from '@/lib/comparacao'
 import { plural } from '@/lib/texto'
 import { TituloPagina } from '@/components/layout/Layout'
-import { AlertaErro, Botao, BotaoLink, Campo, Esqueleto, EstadoVazio, Icone } from '@/components/ui'
+import { AlertaErro, Botao, BotaoLink, Campo, Esqueleto, EstadoVazio } from '@/components/ui'
 import { SelecaoProdutos } from '@/components/comparador/SelecaoProdutos'
 import { QuadroComparacao } from '@/components/comparador/QuadroComparacao'
 
@@ -81,7 +81,6 @@ export function Comparador() {
     return (
       <div className="mx-auto max-w-xl">
         <EstadoVazio
-          icone="comparar"
           titulo="Escolha uma loja para comparar"
           descricao="O comparador mostra as opções de uma loja lado a lado. Comece buscando o produto."
         >
@@ -98,10 +97,9 @@ export function Comparador() {
     <div>
       <Link
         to={`/lojas?produto=${encodeURIComponent(busca)}${loja ? `&cidade=${encodeURIComponent(loja.cidade)}` : ''}`}
-        className="mb-3 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline"
+        className="mb-3 inline-block text-sm font-semibold text-accent hover:underline"
       >
-        <Icone nome="voltar" tamanho={16} />
-        Voltar para as lojas
+        ← Voltar para as lojas
       </Link>
 
       <TituloPagina
@@ -114,7 +112,6 @@ export function Comparador() {
         acoes={
           loja && (
             <BotaoLink to={`/loja/${loja.id}${busca ? `?busca=${encodeURIComponent(busca)}` : ''}`} variante="secundario">
-              <Icone nome="loja" tamanho={16} />
               Ver na loja
             </BotaoLink>
           )
@@ -124,7 +121,7 @@ export function Comparador() {
       <form onSubmit={filtrar} className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end">
         <Campo
           rotulo="Filtrar produtos desta loja"
-          icone="filtro"
+          icone="busca"
           type="search"
           placeholder="Ex.: tinta 18L"
           value={termo}
@@ -169,7 +166,7 @@ export function Comparador() {
           />
 
           {comparados.length === 0 ? (
-            <EstadoVazio icone="comparar" titulo="Selecione pelo menos um produto" />
+            <EstadoVazio titulo="Selecione pelo menos um produto" />
           ) : (
             <>
               <p className="text-sm text-ink-3">

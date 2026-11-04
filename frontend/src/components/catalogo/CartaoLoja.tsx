@@ -1,5 +1,5 @@
 import type { Loja, Produto } from '@/types/api'
-import { BotaoLink, Cartao, Icone, Selo } from '@/components/ui'
+import { BotaoLink, Cartao } from '@/components/ui'
 import { formatarPreco, plural } from '@/lib/texto'
 import { ordenarParaComparar } from '@/lib/comparacao'
 
@@ -39,42 +39,30 @@ export function CartaoLoja({ resultado, termo, melhorPreco = false }: CartaoLoja
 
   return (
     <Cartao destacado={melhorPreco} className="flex flex-col p-5">
-      <div className="flex items-start gap-3">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-bg text-accent">
-          <Icone nome="loja" tamanho={22} />
-        </span>
-        <div className="min-w-0 flex-1">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
           <h3 className="text-lg font-semibold text-ink">{loja.nome}</h3>
           <p className="truncate text-sm text-ink-3">
             {loja.cidade}
             {loja.endereco && ` · ${loja.endereco}`}
           </p>
         </div>
-        {melhorPreco && (
-          <Selo tom="sucesso" icone="etiqueta">
-            Menor preço
-          </Selo>
-        )}
+        {melhorPreco && <span className="shrink-0 text-sm font-semibold text-accent">Menor preço</span>}
       </div>
 
       {buscou && (
-        <div className="mt-4 rounded-m bg-surface-2 p-4">
+        <div className="mt-5 border-t border-line pt-4">
           {destaque ? (
             <>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                <span className="text-xs font-semibold tracking-wide text-ink-3 uppercase">A partir de</span>
-                <span className="text-2xl font-semibold text-accent">{formatarPreco(menorPreco ?? 0)}</span>
-              </div>
-              <p className="mt-1 truncate text-sm font-medium text-ink">{destaque.nome}</p>
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-ink-3">
-                <Selo tom="sucesso" icone="caixa">
-                  {plural(emEstoque.length, 'opção em estoque', 'opções em estoque')}
-                </Selo>
-                <span className="inline-flex items-center gap-1">
-                  <Icone nome="rota" tamanho={14} />
-                  Corredor {destaque.corredor} · {destaque.secao}
-                </span>
-              </div>
+              <p className="text-2xl font-semibold text-ink">
+                {formatarPreco(menorPreco ?? 0)}
+                <span className="ml-2 text-sm font-normal text-ink-3">a partir de</span>
+              </p>
+              <p className="mt-1 truncate text-sm text-ink-2">{destaque.nome}</p>
+              <p className="mt-2 text-sm text-ink-3">
+                {plural(emEstoque.length, 'opção em estoque', 'opções em estoque')} · Corredor {destaque.corredor},{' '}
+                {destaque.secao}
+              </p>
             </>
           ) : (
             <p className="text-sm text-ink-3">
@@ -87,13 +75,9 @@ export function CartaoLoja({ resultado, termo, melhorPreco = false }: CartaoLoja
       )}
 
       <div className="mt-5 flex flex-wrap gap-2">
-        <BotaoLink to={`/loja/${loja.id}${query}`}>
-          <Icone nome="rota" tamanho={16} />
-          Ver na loja
-        </BotaoLink>
+        <BotaoLink to={`/loja/${loja.id}${query}`}>Ver na loja</BotaoLink>
         {buscou && produtos.length >= 2 && (
           <BotaoLink to={`/comparar?lojaId=${loja.id}&busca=${encodeURIComponent(termo)}`} variante="secundario">
-            <Icone nome="comparar" tamanho={16} />
             Comparar {plural(produtos.length, 'opção', 'opções')}
           </BotaoLink>
         )}

@@ -73,9 +73,8 @@ export function BuscaLojas() {
     <div>
       <TituloPagina titulo={titulo} descricao={descricao} />
 
-      <div className="rounded-m border border-line bg-white p-4 shadow-card md:p-5">
+      <div className="rounded-m bg-surface-2 p-4 md:p-5">
         <FormularioBusca
-          compacto
           cidades={cidades}
           carregandoCidades={todasLojas.carregando}
           cidadeInicial={cidade}
