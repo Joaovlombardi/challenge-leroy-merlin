@@ -5,6 +5,7 @@ import { sugestoesBusca } from '@/mocks/dados'
 import { useCarregar } from '@/hooks/useCarregar'
 import { useLojaAtual } from '@/contexts/LojaAtualContext'
 import { BotaoLink } from '@/components/ui'
+import { TituloSecao } from '@/components/layout/Layout'
 import { FormularioBusca } from '@/components/catalogo/FormularioBusca'
 import { SeletorLoja } from '@/components/catalogo/SeletorLoja'
 
@@ -36,14 +37,31 @@ export function Inicio() {
 
   return (
     <div className="space-y-14 md:space-y-20">
-      <section className="pt-4 md:pt-10">
-        <h1 className="max-w-2xl text-3xl leading-tight font-semibold text-ink md:text-4xl">
-          O produto certo, na loja certa, sem dar voltas.
-        </h1>
-        <p className="mt-3 max-w-xl text-ink-2 md:text-lg">
-          Veja qual loja LEROY MERLIN tem o que você precisa, compare as opções e chegue direto ao corredor.
-        </p>
-        <div className="mt-8 rounded-m bg-surface-2 p-4 md:p-6">
+      <section>
+        {/* Hero: texto à esquerda, "montanhas" verdes à direita (motivo geométrico da marca) */}
+        <div className="relative overflow-hidden rounded-m bg-surface-2">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 600 320"
+            preserveAspectRatio="xMaxYMax slice"
+            className="pointer-events-none absolute right-0 bottom-0 h-40 w-full md:h-full md:w-1/2"
+          >
+            <polygon points="600,320 150,320 390,40" fill="#78be20" />
+            <polygon points="600,320 360,320 480,180" fill="#117f03" />
+            <polygon points="600,320 520,320 600,230" fill="#035010" />
+          </svg>
+          <div className="relative max-w-xl px-6 pt-10 pb-48 md:px-12 md:py-20">
+            <h1 className="text-3xl leading-tight font-semibold text-ink md:text-4xl">
+              O produto certo, na loja certa, sem dar voltas.
+            </h1>
+            <p className="mt-4 text-ink-2 md:text-lg">
+              Veja qual loja LEROY MERLIN tem o que você precisa, compare as opções e chegue direto ao corredor.
+            </p>
+          </div>
+        </div>
+
+        {/* Busca: cartão branco com filete verde, sobrepondo a base do hero */}
+        <div className="relative z-10 mx-3 -mt-10 rounded-m border border-line border-t-4 border-t-brand bg-white p-4 md:mx-10 md:-mt-12 md:p-6">
           <FormularioBusca
             cidades={cidades}
             carregandoCidades={lojas.carregando}
@@ -53,15 +71,15 @@ export function Inicio() {
         </div>
       </section>
 
-      <section className="grid gap-6 border-t border-line pt-10 md:grid-cols-[1fr_1.6fr] md:gap-12">
+      <section className="grid gap-6 md:grid-cols-[1fr_1.6fr] md:gap-12">
         <div>
-          <h2 className="text-xl font-semibold text-ink">Já está na loja?</h2>
-          <p className="mt-2 text-sm text-ink-2">
+          <TituloSecao>Já está na loja?</TituloSecao>
+          <p className="mt-3 text-sm text-ink-2">
             Escolha a unidade para buscar produtos, ver o caminho na planta e chamar um vendedor. Na entrada, o QR
             code abre o site já na sua loja.
           </p>
           {lojaAtual && (
-            <div className="mt-5">
+            <div className="mt-5 border-l-4 border-brand pl-4">
               <p className="text-sm text-ink-2">
                 Você está na <strong className="font-semibold text-ink">{lojaAtual.nome}</strong>.
               </p>
@@ -83,14 +101,16 @@ export function Inicio() {
         />
       </section>
 
-      <section className="border-t border-line pt-10">
-        <h2 className="text-xl font-semibold text-ink">Como funciona</h2>
-        <ol className="mt-6 grid gap-8 md:grid-cols-3">
+      <section>
+        <TituloSecao>Como funciona</TituloSecao>
+        <ol className="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
           {passos.map((passo, indice) => (
-            <li key={passo.titulo}>
-              <span className="text-sm font-semibold text-accent">{indice + 1}</span>
-              <h3 className="mt-1 font-semibold text-ink">{passo.titulo}</h3>
-              <p className="mt-1 text-sm text-ink-2">{passo.texto}</p>
+            <li key={passo.titulo} className="flex gap-4 md:block">
+              <span className="text-4xl leading-none font-semibold text-brand md:text-5xl">{indice + 1}</span>
+              <div className="md:mt-4">
+                <h3 className="font-semibold text-ink">{passo.titulo}</h3>
+                <p className="mt-1 text-sm text-ink-2">{passo.texto}</p>
+              </div>
             </li>
           ))}
         </ol>

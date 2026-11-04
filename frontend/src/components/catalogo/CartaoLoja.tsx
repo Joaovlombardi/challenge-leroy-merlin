@@ -54,7 +54,7 @@ export function CartaoLoja({ resultado, termo, melhorPreco = false }: CartaoLoja
         <div className="mt-5 border-t border-line pt-4">
           {destaque ? (
             <>
-              <p className="text-2xl font-semibold text-ink">
+              <p className={`text-2xl font-semibold ${melhorPreco ? 'text-accent' : 'text-ink'}`}>
                 {formatarPreco(menorPreco ?? 0)}
                 <span className="ml-2 text-sm font-normal text-ink-3">a partir de</span>
               </p>

@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useLojaAtual } from '@/contexts/LojaAtualContext'
+import { Icone } from '@/components/ui'
 import { Logotipo } from './Logotipo'
 
 const itens = [
@@ -35,8 +36,9 @@ export function Cabecalho() {
       </div>
 
       {lojaAtual && (
-        <div className="border-b border-line bg-surface-2">
+        <div className="border-b border-success-border bg-success-bg">
           <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2 text-sm text-ink-2">
+            <Icone nome="pin" tamanho={16} className="text-accent" />
             <span>
               Você está na <strong className="font-semibold text-ink">{lojaAtual.nome}</strong>
             </span>

@@ -97,14 +97,14 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
         <table className="w-full table-fixed border-collapse text-left text-sm">
           <thead>
             <tr className="align-top">
-              <th scope="col" className="w-32 p-4 text-xs font-semibold text-ink-3 uppercase">
+              <th scope="col" className="w-32 border-t-4 border-t-transparent p-4 text-xs font-semibold text-ink-3 uppercase">
                 Produto
               </th>
               {produtos.map((produto) => (
                 <th
                   key={produto.id}
                   scope="col"
-                  className={`p-4 align-top ${produto.id === resultado.maisBaratoId ? 'bg-accent-bg' : ''}`}
+                  className={`p-4 align-top ${produto.id === resultado.maisBaratoId ? 'border-t-4 border-t-brand bg-accent-bg' : 'border-t-4 border-t-transparent'}`}
                 >
                   <Destaques produto={produto} resultado={resultado} />
                   {produto.marca && <p className="mt-2 text-xs text-ink-3 uppercase">{produto.marca}</p>}
@@ -117,7 +117,9 @@ export function QuadroComparacao({ lojaId, produtos, resultado }: QuadroComparac
             <Linha titulo="Preço" produtos={produtos} resultado={resultado}>
               {(produto) => (
                 <>
-                  <p className="text-2xl font-semibold text-ink">{formatarPreco(produto.preco)}</p>
+                  <p className={`text-2xl font-semibold ${produto.id === resultado.maisBaratoId ? 'text-accent' : 'text-ink'}`}>
+                    {formatarPreco(produto.preco)}
+                  </p>
                   <Economia produto={produto} maiorPreco={resultado.maiorPreco} />
                 </>
               )}
