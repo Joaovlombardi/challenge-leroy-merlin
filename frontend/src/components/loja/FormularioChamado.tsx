@@ -2,7 +2,8 @@ import { useState, type FormEvent } from 'react'
 import type { Chamado, Produto } from '@/types/api'
 import { chamados } from '@/services/chamados'
 import { mensagemDeErro } from '@/hooks/useCarregar'
-import { AlertaErro, Botao, Icone } from '@/components/ui'
+import { AlertaErro, Botao } from '@/components/ui'
+import { AcompanharChamado } from './AcompanharChamado'
 
 interface FormularioChamadoProps {
   lojaId: number
@@ -13,7 +14,7 @@ interface FormularioChamadoProps {
 
 /**
  * Painel para o cliente pedir ajuda de um vendedor. Envia o chamado com
- * POST /api/chamados e, depois de enviado, mostra a confirmação.
+ * POST /api/chamados e, depois de enviado, mostra o andamento do chamado.
  */
 export function FormularioChamado({ lojaId, produto, aoFechar }: FormularioChamadoProps) {
   const [descricao, setDescricao] = useState('')
@@ -35,19 +36,9 @@ export function FormularioChamado({ lojaId, produto, aoFechar }: FormularioChama
     }
   }
 
+  // Depois de enviado, o painel passa a mostrar o andamento do chamado.
   if (chamadoCriado) {
-    return (
-      <div role="status" className="rounded-m border border-success-border bg-success-bg p-5">
-        <p className="flex items-center gap-2 font-semibold text-success">
-          <Icone nome="check" />
-          Chamado #{chamadoCriado.id} enviado
-        </p>
-        <p className="mt-1 text-sm text-ink-2">Um vendedor já foi avisado e vai até você.</p>
-        <Botao variante="secundario" tamanho="sm" className="mt-4" onClick={aoFechar}>
-          Fechar
-        </Botao>
-      </div>
-    )
+    return <AcompanharChamado chamado={chamadoCriado} aoFechar={aoFechar} />
   }
 
   return (
