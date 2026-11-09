@@ -4,6 +4,7 @@ import { Layout } from '@/components/layout/Layout'
 import { Inicio } from '@/pages/Inicio'
 import { BuscaLojas } from '@/pages/BuscaLojas'
 import { Comparador } from '@/pages/Comparador'
+import { Loja } from '@/pages/Loja'
 import { EmConstrucao } from '@/pages/EmConstrucao'
 import { NaoEncontrada } from '@/pages/NaoEncontrada'
 
@@ -24,15 +25,7 @@ export default function App() {
             <Route path="lojas" element={<BuscaLojas />} />
             <Route path="comparar" element={<Comparador />} />
 
-            <Route
-              path="loja/:lojaId"
-              element={
-                <EmConstrucao
-                  titulo="Tela da loja"
-                  descricao="Aqui o cliente descreve o que precisa e vê produto, preço e o caminho na planta. Aceita ?busca= para já abrir com um termo e ?chamar=1 para abrir o chamado de vendedor."
-                />
-              }
-            />
+            <Route path="loja/:lojaId" element={<Loja />} />
             <Route
               path="loja/:lojaId/produto/:produtoId"
               element={
