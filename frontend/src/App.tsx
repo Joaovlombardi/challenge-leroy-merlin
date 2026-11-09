@@ -5,6 +5,7 @@ import { Inicio } from '@/pages/Inicio'
 import { BuscaLojas } from '@/pages/BuscaLojas'
 import { Comparador } from '@/pages/Comparador'
 import { Loja } from '@/pages/Loja'
+import { Produto } from '@/pages/Produto'
 import { EmConstrucao } from '@/pages/EmConstrucao'
 import { NaoEncontrada } from '@/pages/NaoEncontrada'
 
@@ -26,15 +27,7 @@ export default function App() {
             <Route path="comparar" element={<Comparador />} />
 
             <Route path="loja/:lojaId" element={<Loja />} />
-            <Route
-              path="loja/:lojaId/produto/:produtoId"
-              element={
-                <EmConstrucao
-                  titulo="Produto e rota na planta"
-                  descricao="Detalhe do produto com corredor, seção e o traçado até a prateleira, além do botão de chamar vendedor."
-                />
-              }
-            />
+            <Route path="loja/:lojaId/produto/:produtoId" element={<Produto />} />
             <Route
               path="vendedor"
               element={
