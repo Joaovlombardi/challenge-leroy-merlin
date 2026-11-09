@@ -2,6 +2,8 @@
 
 Backend Java 21 com Spring Boot 4.1.2. Esta entrega define as rotas, os modelos, as regras dos chamados e as interfaces de persistência. **Ainda não há implementação das interfaces nem dados H2**: a aplicação só inicia para atender requisições depois que a pessoa 4 fornecer beans para `CatalogoRepository` e `ChamadoRepository`. Os testes usam implementações apenas de teste.
 
+> **Próximos passos:** o que falta para a API funcionar de verdade (banco H2, repositórios e deploy), explicado em fases, está no [guia do backend](docs/guia-do-backend.md).
+
 ## Executar os testes
 
 Na pasta `backend`, execute `./mvnw test` (Linux/macOS) ou `.\mvnw.cmd test` (Windows). É necessário JDK 21 ou superior. O Maven Wrapper baixa o Maven automaticamente na primeira execução.

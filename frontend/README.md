@@ -33,20 +33,25 @@ src/
 │   ├── Inicio.tsx            "/"          (Pessoa 1)
 │   ├── BuscaLojas.tsx        "/lojas"     (Pessoa 1)
 │   ├── Comparador.tsx        "/comparar"  (Pessoa 1)
-│   ├── EmConstrucao.tsx      placeholder das telas da Pessoa 2
+│   ├── Loja.tsx              "/loja/:lojaId"  (Pessoa 2)
+│   ├── Produto.tsx           "/loja/:lojaId/produto/:produtoId"  (Pessoa 2)
+│   ├── Vendedor.tsx          "/vendedor"  (Pessoa 2)
 │   └── NaoEncontrada.tsx     404
 ├── components/
 │   ├── ui/           botões, campos, cartão, selos, esqueletos, estados vazios, ícones
 │   ├── layout/       cabeçalho, rodapé, Layout com <Outlet/>, TituloPagina, logotipo
 │   ├── catalogo/     formulário de busca, seletor de loja, cartão de loja
-│   └── comparador/   seleção de produtos e quadro de comparação
+│   ├── comparador/   seleção de produtos e quadro de comparação
+│   ├── loja/         cartão de produto, planta da loja, formulário e acompanhamento de chamado
+│   └── vendedor/     cartão de chamado do painel do vendedor
 ├── services/
 │   ├── http.ts       fetch com tratamento do erro {"erro": "..."} do backend
-│   └── catalogo.ts   interface CatalogoApi e a escolha entre HTTP e mock
+│   ├── catalogo.ts   interface CatalogoApi e a escolha entre HTTP e mock
+│   └── chamados.ts   interface ChamadosApi e a escolha entre HTTP e mock
 ├── mocks/            dados simulados e implementação em memória do catálogo
 ├── contexts/         LojaAtualContext: loja em que o cliente está
 ├── hooks/            useCarregar: dados + carregando + erro + recarregar
-├── lib/              texto (normalizar, formatar preço), comparação, localStorage
+├── lib/              texto (normalizar, formatar preço, tempo), comparação, planta, localStorage
 ├── types/api.ts      tipos espelhando o contrato do backend
 ├── App.tsx           mapa de rotas
 └── index.css         tema (cores, fontes, sombras) do Tailwind
@@ -63,15 +68,25 @@ src/
 | `/loja/:lojaId/produto/:produtoId` | Detalhe do produto com corredor, seção e traçado na planta | Pessoa 2 |
 | `/vendedor` | Painel do vendedor com os chamados | Pessoa 2 |
 
-As rotas da Pessoa 2 já existem em `App.tsx` apontando para a página `EmConstrucao`, que mostra os parâmetros recebidos. Para assumir uma rota, basta trocar o `element` pela tela nova.
-
-### O que as telas da Pessoa 1 enviam para as da Pessoa 2
+### Como as telas se conectam
 
 - **Ver na loja** (busca e comparador): `/loja/{lojaId}?busca={termo}`. O termo é o que o cliente digitou; a tela da loja pode abrir já com ele preenchido.
 - **Ir até a prateleira** (comparador): `/loja/{lojaId}/produto/{produtoId}`.
 - **Chamar vendedor** (comparador): `/loja/{lojaId}?chamar=1&produtoId={produtoId}`. A ideia é abrir o formulário de chamado com o produto já selecionado.
 - **Escolher loja** (tela inicial): salva a loja em `localStorage` na chave `leroy-guia:loja-atual` e navega para `/loja/{lojaId}`. Para ler, use o hook `useLojaAtual()` de `src/contexts/LojaAtualContext.tsx`.
-- **QR code na entrada** (extra do documento da sprint): o QR pode apontar direto para `/loja/{lojaId}`. Vale a tela da loja chamar `definirLojaAtual(loja)` ao abrir, assim o cabeçalho passa a mostrar "Você está na Loja X".
+- **QR code na entrada** (extra do documento da sprint): o QR pode apontar direto para `/loja/{lojaId}`. A tela da loja chama `definirLojaAtual(loja)` ao abrir, então o cabeçalho passa a mostrar "Você está na Loja X".
+
+### Telas da loja e do vendedor (Pessoa 2)
+
+- **Tela da loja** (`/loja/:lojaId`): busca de produtos da loja, cartões com preço, estoque e corredor, e o painel "Chamar vendedor". O estado fica na URL (`?busca=`, `?chamar=1`, `?produtoId=`), então os links acima funcionam sem adaptação e o botão voltar fecha o painel.
+- **Produto** (`/loja/:lojaId/produto/:produtoId`): dados do produto, "Onde fica", passo a passo em texto e a planta com a rota. No celular a planta vem primeiro.
+- **Painel do vendedor** (`/vendedor`): escolhe a loja, mostra os chamados em abas (Abertos, Atendendo, Concluídos) e tem os botões Atender e Concluir. Atualiza a cada 15 s.
+- **Acompanhar o chamado:** depois de enviar, o cliente vê a linha do tempo do chamado, que se atualiza a cada 10 s.
+- **Testar sem backend:** abra a tela da loja em uma aba e `/vendedor` em outra. Os chamados simulados ficam no `localStorage` (chave `leroy-guia:chamados`) e o evento `storage` faz as duas abas se atualizarem na hora.
+
+### Planta da loja
+
+`src/lib/planta.ts` e `src/components/loja/PlantaLoja.tsx` desenham uma planta esquemática única para todas as lojas. O corredor do produto segue o padrão **letra A–F + número 1–5** (ex.: `C4`): a letra é a coluna e o número é o trecho, contado a partir da entrada. Um código fora desse padrão mostra a planta sem rota, mas o texto "Corredor X · Seção Y" continua aparecendo. Os dados do backend precisam seguir o mesmo padrão (ver o guia do backend).
 
 ### Peças prontas para reutilizar
 
@@ -94,7 +109,7 @@ const produtos = useCarregar(() => catalogo.listarProdutos(lojaId, busca), [loja
 // produtos.dados, produtos.carregando, produtos.erro, produtos.recarregar()
 ```
 
-Para os chamados (`POST /api/chamados`, `GET /api/chamados`, `PATCH /api/chamados/{id}/status`), os tipos já estão em `src/types/api.ts`. Falta só um `services/chamados.ts` no mesmo estilo de `services/catalogo.ts`, com uma versão HTTP e uma simulada.
+Para os chamados (`POST /api/chamados`, `GET /api/chamados`, `PATCH /api/chamados/{id}/status`), use `chamados` de `src/services/chamados.ts`. A versão simulada (`src/mocks/chamadosMock.ts`) segue as mesmas regras do backend.
 
 ## Identidade visual
 
