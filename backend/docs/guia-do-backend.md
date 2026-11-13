@@ -14,6 +14,8 @@ O H2 é criado por `schema.sql` e preenchido por `data.sql` a cada inicializaç�
 
 ## Deploy
 
+O site e a API estão publicados em `https://leroy-guia-fiap.vercel.app` e `https://leroy-guia-api.onrender.com`. A produção da Vercel usa `VITE_API_URL=https://leroy-guia-api.onrender.com` e `VITE_USE_MOCK=false`. O Render permite a origem do site por `APP_CORS_ALLOWED_ORIGINS`.
+
 O `backend/Dockerfile` monta o pacote Java e o `render.yaml` configura um serviço web gratuito no Render. O serviço lê `PORT` e precisa de `APP_CORS_ALLOWED_ORIGINS` com a origem exata do site Vercel.
 
 Na Vercel, use `frontend` como diretório raiz, `npm run build` como build e `dist` como saída. Defina `VITE_API_URL` com a URL pública do Render e `VITE_USE_MOCK=false`. Refaça o deploy após configurar essas variáveis, pois o Vite incorpora a URL no build.

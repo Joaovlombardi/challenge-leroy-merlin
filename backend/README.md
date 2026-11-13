@@ -2,6 +2,8 @@
 
 Backend Java 21 com Spring Boot 4.1.2. A API usa H2 em memória, carrega as mesmas 4 lojas e 86 produtos do frontend e guarda os chamados enquanto o processo estiver ativo. O arquivo `data.sql` é gerado a partir de `frontend/src/mocks/dados.ts`; alterações no catálogo devem começar no frontend e ser exportadas com `npm run export:sql` na pasta `frontend`.
 
+API publicada: [`https://leroy-guia-api.onrender.com`](https://leroy-guia-api.onrender.com/api/lojas). O site em produção usa esta API.
+
 Para executar localmente: `./mvnw spring-boot:run` (Linux/macOS) ou `.\mvnw.cmd spring-boot:run` (Windows). A API atende em `http://localhost:8080`. O [guia do backend](docs/guia-do-backend.md) resume a integração e o deploy.
 
 ## Executar os testes

@@ -2,7 +2,7 @@
 
 MVP do desafio Leroy Merlin da FIAP: o cliente encontra uma loja com estoque, localiza o produto na planta e chama um vendedor. O frontend React está em [`frontend/`](frontend/README.md); a API Java com H2 está em [`backend/`](backend/README.md).
 
-O [site publicado](https://leroy-guia-fiap.vercel.app) está temporariamente no modo de dados simulados. A conexão com a API pública será ativada quando o serviço Render estiver disponível.
+O [site publicado](https://leroy-guia-fiap.vercel.app) usa a [API no Render](https://leroy-guia-api.onrender.com/api/lojas). A produção da Vercel está configurada com `VITE_API_URL=https://leroy-guia-api.onrender.com` e `VITE_USE_MOCK=false`.
 
 ## Rodar localmente
 
