@@ -1,8 +1,8 @@
 # API do Leroy Guia
 
-Backend Java 21 com Spring Boot 4.1.2. Esta entrega define as rotas, os modelos, as regras dos chamados e as interfaces de persistência. **Ainda não há implementação das interfaces nem dados H2**: a aplicação só inicia para atender requisições depois que a pessoa 4 fornecer beans para `CatalogoRepository` e `ChamadoRepository`. Os testes usam implementações apenas de teste.
+Backend Java 21 com Spring Boot 4.1.2. A API usa H2 em memória, carrega as mesmas 4 lojas e 86 produtos do frontend e guarda os chamados enquanto o processo estiver ativo. O arquivo `data.sql` é gerado a partir de `frontend/src/mocks/dados.ts`; alterações no catálogo devem começar no frontend e ser exportadas com `npm run export:sql` na pasta `frontend`.
 
-> **Próximos passos:** o que falta para a API funcionar de verdade (banco H2, repositórios e deploy), explicado em fases, está no [guia do backend](docs/guia-do-backend.md).
+Para executar localmente: `./mvnw spring-boot:run` (Linux/macOS) ou `.\mvnw.cmd spring-boot:run` (Windows). A API atende em `http://localhost:8080`. O [guia do backend](docs/guia-do-backend.md) resume a integração e o deploy.
 
 ## Executar os testes
 
@@ -23,13 +23,13 @@ Todos os endpoints usam JSON e o prefixo `/api`. Os IDs são números inteiros p
 Exemplo de loja:
 
 ```json
-{"id":1,"nome":"Loja São Paulo","cidade":"São Paulo"}
+{"id":1,"nome":"Loja Morumbi","cidade":"São Paulo","endereco":"Av. das Nações Unidas, 4500"}
 ```
 
 Exemplo de produto:
 
 ```json
-{"id":10,"lojaId":1,"nome":"Tinta branca","descricao":"Tinta acrílica para parede","preco":49.90,"estoque":4,"corredor":"A2","secao":"Tintas"}
+{"id":101,"lojaId":1,"nome":"Tinta acrílica fosca branca 18L","descricao":"Tinta para parede interna e externa, acabamento fosco, rende até 300 m². Linha econômica.","preco":189.90,"estoque":12,"corredor":"A2","secao":"Tintas","marca":"Colorlar","avaliacao":4.0}
 ```
 
 As rotas de listagem retornam arrays desses objetos. A tela pode comparar preço e estoque dos produtos recebidos e mostrar corredor e seção como destino; o traçado visual da rota na planta cabe ao frontend.
@@ -45,13 +45,13 @@ As rotas de listagem retornam arrays desses objetos. A tela pode comparar preço
 Exemplo de criação (o produto é opcional, a descrição não):
 
 ```json
-{"lojaId":1,"produtoId":10,"descricao":"Preciso de ajuda com esta tinta"}
+{"lojaId":1,"produtoId":101,"descricao":"Preciso de ajuda com esta tinta"}
 ```
 
 Exemplo de resposta:
 
 ```json
-{"id":1,"lojaId":1,"produtoId":10,"descricao":"Preciso de ajuda com esta tinta","status":"ABERTO","criadoEm":"2026-11-04T12:00:00Z","atualizadoEm":"2026-11-04T12:00:00Z"}
+{"id":1,"lojaId":1,"produtoId":101,"descricao":"Preciso de ajuda com esta tinta","status":"ABERTO","criadoEm":"2026-11-13T12:00:00Z","atualizadoEm":"2026-11-13T12:00:00Z"}
 ```
 
 Exemplo de atualização:
@@ -62,8 +62,8 @@ Exemplo de atualização:
 
 Os únicos avanços permitidos são `ABERTO` → `EM_ATENDIMENTO` → `CONCLUIDO`. O chamado deve citar uma loja existente e, quando informado, um produto pertencente a essa loja.
 
-## Integração com a pessoa 4
+## Deploy
 
-Implementar `CatalogoRepository` e `ChamadoRepository` como beans Spring, usando H2 e os dados de exemplo. `CatalogoRepository.listarLojas()` devolve as lojas; `listarProdutos(lojaId)` devolve os produtos daquela loja com preço, estoque e localização. `ChamadoRepository.salvar()` atribui um ID a chamados novos e atualiza os existentes; `buscarPorId()` e `listar()` fornecem os dados para a tela do vendedor. Os serviços aplicam filtros e transições, portanto a implementação do banco não precisa repetir essas regras.
+O `Dockerfile` em `backend/` e o `render.yaml` na raiz preparam um serviço web gratuito no Render. Configure `APP_CORS_ALLOWED_ORIGINS` com a origem exata da Vercel, sem barra final. O padrão local permite `http://localhost:5173` e `http://localhost:3000`. A aplicação usa a variável `PORT` fornecida pelo Render.
 
-Para liberar o acesso do frontend hospedado, definir `APP_CORS_ALLOWED_ORIGINS` com a origem da Vercel, por exemplo `https://seu-site.vercel.app`. O padrão local permite `http://localhost:5173` e `http://localhost:3000`.
+O H2 fica em memória: chamados se perdem quando o serviço reinicia ou dorme. Isso atende ao MVP demonstrativo; se os chamados precisarem sobreviver a reinícios, será necessário trocar por um banco persistente.
