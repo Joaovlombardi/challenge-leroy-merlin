@@ -12,6 +12,10 @@ O [site publicado](https://leroy-guia-fiap.vercel.app) usa a [API no Render](htt
 
 O catálogo de exemplo é definido em `frontend/src/mocks/dados.ts`. Rode `npm run export:sql` em `frontend/` após alterá-lo. O banco H2 é recriado a cada início da API, inclusive os chamados.
 
+## Entrega do Sprint 2
+
+O [pacote final](entrega/Leroy-Guia-entrega.zip) contém o PDF com o time, os integrantes com RM e o link do site, além de um ZIP com o código do projeto. O campo do vídeo está em branco até o link definitivo ser informado. Os arquivos são gerados por [`entrega/gerar_entrega.py`](entrega/gerar_entrega.py).
+
 ## Verificação e publicação
 
 `npm run check:sql` e `npm run build` em `frontend/`; `./mvnw verify` em `backend/`. O CI executa essas verificações. O `render.yaml` e `backend/Dockerfile` preparam o backend para o Render; o frontend usa Vercel com diretório raiz `frontend`. As variáveis de conexão e CORS estão no [guia de integração e deploy](backend/docs/guia-do-backend.md).
