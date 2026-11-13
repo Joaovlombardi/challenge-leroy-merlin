@@ -2,6 +2,8 @@
 
 MVP do desafio Leroy Merlin da FIAP: o cliente encontra uma loja com estoque, localiza o produto na planta e chama um vendedor. O frontend React está em [`frontend/`](frontend/README.md); a API Java com H2 está em [`backend/`](backend/README.md).
 
+O [site publicado](https://leroy-guia-fiap.vercel.app) está temporariamente no modo de dados simulados. A conexão com a API pública será ativada quando o serviço Render estiver disponível.
+
 ## Rodar localmente
 
 1. Em `backend/`, com JDK 21 ou superior: `./mvnw spring-boot:run` (Windows: `.\mvnw.cmd spring-boot:run`). A API atende em `http://localhost:8080`.

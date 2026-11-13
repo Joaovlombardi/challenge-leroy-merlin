@@ -8,4 +8,4 @@ services:
     healthCheckPath: /api/lojas
     envVars:
       - key: APP_CORS_ALLOWED_ORIGINS
-        sync: false
+        value: https://leroy-guia-fiap.vercel.app
