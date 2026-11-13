@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: leroy-guia-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/lojas
+    envVars:
+      - key: APP_CORS_ALLOWED_ORIGINS
+        sync: false

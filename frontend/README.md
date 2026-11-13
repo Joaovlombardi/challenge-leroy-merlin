@@ -129,7 +129,7 @@ Regras que o guia pede e o código segue: verde é para ação e destaque, não 
 
 ## Campos opcionais no contrato
 
-`Loja.endereco`, `Produto.marca`, `Produto.avaliacao` e `Produto.imagemUrl` **não existem no contrato do backend**. Eles estão como opcionais em `src/types/api.ts` e nos dados simulados. Se as pessoas 3 e 4 resolverem adicioná-los, as telas passam a mostrá-los sem mudança no front. Se não, nada quebra: o comparador deixa de mostrar as linhas de marca e avaliação, e o cartão de loja mostra só a cidade.
+`Loja.endereco`, `Produto.marca` e `Produto.avaliacao` agora vêm da API, com os mesmos valores de `src/mocks/dados.ts`. `Produto.imagemUrl` continua opcional e não está preenchido no catálogo atual. Para sincronizar o H2 após editar os dados do front, rode `npm run export:sql`; `npm run check:sql` confere a sincronização sem alterar arquivos.
 
 ## Deploy na Vercel (Pessoa 5)
 

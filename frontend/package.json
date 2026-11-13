@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "export:sql": "node scripts/exportar-sql.mjs",
+    "check:sql": "node scripts/exportar-sql.mjs --check"
   },
   "dependencies": {
     "react": "^19.1.0",
