@@ -23,13 +23,12 @@ PDF = OUT / "Leroy-Guia.pdf"
 SOURCE_ZIP = OUT / "Leroy-Guia-codigo.zip"
 FINAL_ZIP = OUT / "Leroy-Guia-entrega.zip"
 SITE = "https://leroy-guia-fiap.vercel.app"
-VIDEO = "https://youtu.be/7BwmxwrZSIQ"
 MEMBERS = (
-    "Miguel de França Monteiro",
-    "Isabele Maciel Viana de Freitas",
-    "Gabriel Dantas Borges Soares",
-    "João Vitor Lombardi Hayashi",
-    "Maria Eduarda Santos Pedro",
+    "Miguel de França Monteiro - RM 566226",
+    "Isabele Maciel Viana de Freitas - RM 562859",
+    "Gabriel Dantas Borges Soares - RM 564860",
+    "João Vitor Lombardi Hayashi - RM 563329",
+    "Maria Eduarda Santos Pedro - RM 566546",
 )
 
 
@@ -86,11 +85,6 @@ def draw_pdf() -> None:
     pdf.setFillColor(dark)
     pdf.setFont("Arial-Bold", 13)
     pdf.drawString(54, y, "Vídeo de apresentação")
-    y -= 26
-    pdf.setFillColor(green)
-    pdf.setFont("Arial", 11)
-    pdf.drawString(54, y, VIDEO)
-    pdf.linkURL(VIDEO, (54, y - 3, 350, y + 14), relative=0)
 
     pdf.setStrokeColor(line)
     pdf.line(54, 72, width - 54, 72)

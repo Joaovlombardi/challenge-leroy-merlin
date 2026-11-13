@@ -14,7 +14,7 @@ O catálogo de exemplo é definido em `frontend/src/mocks/dados.ts`. Rode `npm r
 
 ## Entrega do Sprint 2
 
-O [pacote final](entrega/Leroy-Guia-entrega.zip) contém o PDF com o time, os integrantes e os links do site e do vídeo, além de um ZIP com o código do projeto. Os arquivos são gerados por [`entrega/gerar_entrega.py`](entrega/gerar_entrega.py).
+O [pacote final](entrega/Leroy-Guia-entrega.zip) contém o PDF com o time, os integrantes com RM e o link do site, além de um ZIP com o código do projeto. O campo do vídeo está em branco até o link definitivo ser informado. Os arquivos são gerados por [`entrega/gerar_entrega.py`](entrega/gerar_entrega.py).
 
 ## Verificação e publicação
 
